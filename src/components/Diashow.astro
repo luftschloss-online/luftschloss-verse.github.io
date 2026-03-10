@@ -8,6 +8,7 @@ const {
       imageAlt: "Hero 1",
       objectPosition: "50% 40%",
       title: `Create. Select.<br>&nbsp;&nbsp;&nbsp;&nbsp;Experience.<br><span>- Live mit KI</span>`,
+      title2: ``,
       name: `AI-<span>Verse</span>`,
       lede: `Schon überlegt, wie du & dein Produkt in <strong>einer neuen Dimension</strong> wirken?`,
       ledeBottom: ""
@@ -17,6 +18,7 @@ const {
       imageAlt: "Hero 1",
       objectPosition: "50% 40%",
       title: ``,
+      title2: `CITY`,
       name: ``,
       lede: ``,
       ledeBottom: `Create. Select. Experience.<span> - Live mit KI</span>`
@@ -26,6 +28,7 @@ const {
       imageAlt: "Hero 2",
       objectPosition: "50% 40%",
       title: ``,
+      title2: `FANS`,
       name: ``,
       lede: ``,
       ledeBottom: `Create. Select. Experience.<span> - Live mit KI</span>`
@@ -35,6 +38,7 @@ const {
       imageAlt: "Hero 3",
       objectPosition: "50% 40%",
       title: ``,
+      title2: `FOOD`,
       name: ``,
       lede: ``,
       ledeBottom: `Create. Select. Experience.<span> - Live mit KI</span>`
@@ -44,6 +48,7 @@ const {
       imageAlt: "Hero 4",
       objectPosition: "50% 40%",
       title: ``,
+      title2: `MARKEN`,
       name: ``,
       lede: ``,
       ledeBottom: `Create. Select. Experience.<span>  - Live mit KI</span>`
@@ -53,6 +58,7 @@ const {
       imageAlt: "Hero 5",
       objectPosition: "50% 40%",
       title: ``,
+      title2: `MESSEN`,
       name: ``,
       lede: ``,
       ledeBottom: `Create. Select. Experience.<span>  - Live mit KI</span>`
@@ -62,6 +68,7 @@ const {
       imageAlt: "Hero 6",
       objectPosition: "50% 40%",
       title: ``,
+      title2: `MUSEEN`,
       name: ``,
       lede: ``,
       ledeBottom: `Create. Select. Experience.<span>  - Live mit KI</span>`
@@ -71,6 +78,7 @@ const {
       imageAlt: "Hero 7",
       objectPosition: "50% 40%",
       title: ``,
+      title2: `RETAIL`,
       name: ``,
       lede: ``,
       ledeBottom: `Create. Select. Experience.<span>  - Live mit KI</span>`
@@ -80,6 +88,7 @@ const {
       imageAlt: "Hero 8",
       objectPosition: "50% 40%",
       title: ``,
+      title2: `SHOPPING`,
       name: ``,
       lede: ``,
       ledeBottom: `Create. Select. Experience.<span>  - Live mit KI</span>`
@@ -89,6 +98,7 @@ const {
       imageAlt: "Hero 9",
       objectPosition: "50% 40%",
       title: ``,
+      title2: `WEDDING`,
       name: ``,
       lede: ``,
       ledeBottom: `Create. Select. Experience.<span>  - Live mit KI</span>`
@@ -98,7 +108,7 @@ const {
 } = Astro.props;
 ---
 
-<section class="hero-slideshow" data-interval={interval}>
+<section class="hero-slideshow">
   <div class="hero-slideshow_slides">
     {slides.map((slide, i) => (
       <article
@@ -131,18 +141,26 @@ const {
               )} />
             </h1>
 
-
             <div class="lede">
               <Fragment set:html={slide.lede} />
             </div>
           </div>
 
           <div class="lede-bottom">
+            <div class="title2">
+              <Fragment set:html={slide.title2} />
+            </div>
             <Fragment set:html={slide.ledeBottom} />
           </div>
         </div>
       </article>
     ))}
+  </div>
+
+  <!-- ARROWS -->
+  <div class="hero-arrows">
+    <button class="hero-arrow hero-arrow-prev" aria-label="Previous slide">‹</button>
+    <button class="hero-arrow hero-arrow-next" aria-label="Next slide">›</button>
   </div>
 </section>
 
@@ -150,13 +168,9 @@ const {
   const slideshows = document.querySelectorAll(".hero-slideshow");
 
   slideshows.forEach((root) => {
-    if (!(root instanceof HTMLElement)) return;
-
-    const slides = Array.from(
-      root.querySelectorAll<HTMLElement>("[data-slide]")
-    );
-
-    const interval = Number(root.dataset.interval || 4500);
+    const slides = Array.from(root.querySelectorAll("[data-slide]"));
+    const prevBtn = root.querySelector(".hero-arrow-prev");
+    const nextBtn = root.querySelector(".hero-arrow-next");
 
     if (slides.length <= 1) return;
 
@@ -170,92 +184,200 @@ const {
       });
     };
 
-    setInterval(() => {
+    const next = () => {
       index = (index + 1) % slides.length;
       showSlide(index);
-    }, interval);
+    };
+
+    const prev = () => {
+      index = (index - 1 + slides.length) % slides.length;
+      showSlide(index);
+    };
+
+    nextBtn?.addEventListener("click", next);
+    prevBtn?.addEventListener("click", prev);
   });
 </script>
 
 <style>
-  .hero-slideshow {
-    position: relative;
-    min-height: 90vh;
-    overflow: hidden;
-  }
+.hero-slideshow {
+  position: relative;
+  min-height: 90vh;
+  overflow: hidden;
+}
 
-  .hero-slideshow_slides {
-    position: relative;
-    min-height: 90vh;
-  }
+.hero-slideshow_slides {
+  position: relative;
+  min-height: 90vh;
+}
 
-  .hero-slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 900ms ease;
-    pointer-events: none;
-  }
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 900ms ease;
+  pointer-events: none;
+}
 
-  .hero-slide.is-active {
-    opacity: 1;
-    pointer-events: auto;
-    z-index: 1;
-  }
+.hero-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
 
-  .hero-slide_img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+.hero-slide_img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-  .hero-slide_overlay {
-    position: relative;
-    z-index: 2;
-    min-height: 90vh;
-  }
+.hero-slide_overlay {
+  position: relative;
+  z-index: 2;
+  min-height: 90vh;
+}
 
-  .lede-bottom{
-    position:absolute;
-    bottom:40px;
-    left:50%;
-    transform:translateX(-50%);
-    
-    font-family:"Unigeo semibold";
-    text-align:center;
-    font-size:25px;
-    letter-spacing: 0.05em;
-    color:white;
+.hero-slide_overlay::after{
+  content:"";
+  position:absolute;
+  inset:0;
 
-    max-width:600px;
-    padding:0 20px;
-    }
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.45) 0%,
+    rgba(0,0,0,0.25) 25%,
+    rgba(0,0,0,0.1) 45%,
+    rgba(0,0,0,0) 70%
+  );
 
-    .lede-bottom :global(span){
-    font-family:"Unigeo slim";
-    }
+  pointer-events:none;
+  z-index:1;
+}
 
-  .hero-slide .lede-bottom{
-    opacity:0;
-    transform:translate(-50%,10px);
-    transition: all .8s ease;
-    }
+.hero-slide_overlay > *{
+  position:absolute;
+  z-index:2;
+}
 
-  .hero-slide.is-active .lede-bottom{
-    opacity:1;
-    transform:translate(-50%,0);
-    }
+.hero-arrows{
+  position:absolute;
+  inset:0;
+  align-items:center;
+  z-index:3;
+  pointer-events:none;
+}
 
-  @media (max-width: 700px) {
-    .hero-slideshow,
-    .hero-slideshow_slides,
-    .hero-slide_overlay {
-      min-height: 82vh;
-    }
-    .lede-bottom{
-        font-size: 16px;
-    }
-  }
+.hero-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+
+  width:86px;
+  height:86px;
+
+  border-radius:50%;
+  font-size:84px;
+  line-height:1;
+
+  color:white;
+  background:rgba(255,255,255,0.25);
+
+  backdrop-filter:blur(6px);
+
+  cursor:pointer;
+  transition:all .25s ease;
+
+  pointer-events:auto;
+}
+
+.hero-arrow-prev{
+  left:35%;
+}
+
+.hero-arrow-next{
+  right:35%;
+}
+
+.hero-arrow:hover{
+  background:transparent;
+  color: var(--accent);
+}
+
+.title2{
+  font-family:"Unigeo semibold";
+  text-align:center;
+  font-size:45px;
+  letter-spacing:0.05em;
+  color:white;
+}
+
+.lede-bottom{
+  position:absolute;
+  bottom:40px;
+  left:50%;
+  transform:translateX(-50%);
+  
+  font-family:"Unigeo semibold";
+  text-align:center;
+  font-size:25px;
+  letter-spacing:0.05em;
+  color:white;
+
+  max-width:600px;
+  padding:0 20px;
+}
+
+.lede-bottom :global(span){
+  font-family:"Unigeo slim";
+}
+
+.hero-slide .lede-bottom .title2{
+  opacity:0;
+  transform:translate(0px,10px);
+  transition:all .8s ease;
+}
+
+.hero-slide.is-active .lede-bottom .title2{
+  opacity:1;
+  transform:translate(0,0);
+}
+
+@media (max-width:1200px){
+  .hero-arrow{
+  width:68px;
+  height:68px;
+  font-size:52px;
+}
+.hero-arrow-prev{ left:25%; }
+.hero-arrow-next{ right:25%; }
+.lede-bottom { width: 900px; }
+}
+
+@media (max-width:900px){
+  .hero-arrow{
+  width:58px;
+  height:58px;
+  font-size:42px;
+}
+.hero-arrow-prev{ left:15%; }
+.hero-arrow-next{ right:15%; }
+}
+
+@media (max-width:700px){
+.hero-arrow-prev{ left:5%; }
+.hero-arrow-next{ right:5%; }
+
+.hero-slideshow,
+.hero-slideshow_slides,
+.hero-slide_overlay{
+  min-height:82vh;
+}
+.lede-bottom{
+  font-size:18px;
+  width: 500px;
+}
+
+}
 </style>
