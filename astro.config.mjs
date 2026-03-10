@@ -1,11 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-
-import react from '@astrojs/react';
-
 import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), sitemap()],
+  site: 'https://luftschloss-online.github.io',
+  base: '/luftschloss-verse.github.io',
+  integrations: [sitemap()],
 });
