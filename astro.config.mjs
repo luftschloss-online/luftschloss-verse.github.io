@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  //site: 'https://luftschloss-online.github.io',
-  //base: '/luftschloss-verse.github.io',
+  site: 'https://luftschloss-online.github.io',
+  base: '/luftschloss-verse.github.io',
   integrations: [sitemap()],
 });
