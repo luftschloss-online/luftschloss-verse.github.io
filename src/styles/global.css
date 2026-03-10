@@ -561,7 +561,7 @@ h2{
   margin: 0;
   line-height: .88;
   letter-spacing: -0.02em;
-  font-size: clamp(90px, 10vw, 150px);
+  font-size: clamp(70px, 10vw, 150px);
   position: relative;
   z-index: 1;
   white-space: nowrap;
