@@ -1,0 +1,293 @@
+---
+import "../styles/global.css";
+---
+<section class="modules_section">
+  <div class="modules_blob" aria-hidden="true"></div>
+
+<div class="modules_inner">
+    <header class="modules_head">
+      <h2>AI-VERSE Module</h2>
+      <p>die du frei kombinieren kannst</p>
+    </header>
+
+    <div class="modules_layout">
+      <div class="modules_grid">
+        <button class="mod-chip" data-badge="Sharing<br />&amp; Print" data-text="QR-Code, E-Mail, Druck optional">
+            Sharing<br />&amp; Print
+        </button>
+        <button class="mod-chip" data-badge="Fashion<br>Try-On" data-text="Outfit/Accessoires auf Person">
+            Fashion<br />Try-On
+        </button>
+        <button class="mod-chip" data-badge="Back<br />grounds" data-text="KI-Hintergrundwechsel ohne Greenscreen">
+            Back-<br />grounds
+        </button>
+        <button class="mod-chip" data-badge="Story<br />Mode" data-text="Geführte Dramaturgie">
+            Story<br />Mode
+        </button>
+        <button class="mod-chip" data-badge="Brand<br />Worlds" data-text="CI-Look, Kampagnen-Ästhetik">
+            Brand<br />Worlds
+        </button>
+        <button class="mod-chip" data-badge="Food<br />Composer" data-text="Zutaten → Bild + Rezept">
+            Food<br />Composer
+        </button>
+        <button class="mod-chip" data-badge="Quiz,<br />Signatur,<br />Interaction" data-text="Wartezeit-Erlebnis">
+            Quiz,<br />Signatur,<br />Interaction
+        </button>
+        <button class="mod-chip" data-badge="Interior<br />Scene<br />Builder" data-text="Möbel → Raum/Look">
+            Interior<br />Scene<br />Builder
+        </button>
+        <button class="mod-chip" data-badge="User<br />Analytics" data-text="Messbare Ergebnisse & Nutzer-Insights">
+            User<br />Analytics
+        </button>
+      </div>
+
+      <div class="stehle-card">
+        <img
+          src="/imgs/frame.png"
+          alt=""
+          class="stehle-card_frame"
+        />
+
+        <div class="stehle-card_screen">
+          <div class="stehle-card_badge">Wähle ein Modul</div>
+          <div class="stehle-card_arrow">↓</div>
+          <div class="stehle-card_text">Und finde heraus was es macht</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const chips = document.querySelectorAll<HTMLButtonElement>(".mod-chip");
+const text = document.querySelector<HTMLElement>(".stehle-card_text");
+const badge = document.querySelector<HTMLElement>(".stehle-card_badge");
+
+let activeTimeout: ReturnType<typeof setTimeout> | null = null;
+
+if (text && badge) {
+  chips.forEach((chip) => {
+    chip.addEventListener("pointerenter", () => {
+      const newText = chip.dataset.text;
+      const newBadge = chip.dataset.badge;
+
+      chips.forEach((c) => c.classList.remove("is-active"));
+      chip.classList.add("is-active");
+
+      badge.style.opacity = "0";
+      text.style.opacity = "0";
+      badge.style.transform = "translateY(6px)";
+      text.style.transform = "translateY(6px)";
+
+      if (activeTimeout) clearTimeout(activeTimeout);
+
+      activeTimeout = setTimeout(() => {
+        if (newText) text.innerHTML = newText;
+        if (newBadge) badge.innerHTML = newBadge;
+
+        badge.style.opacity = "1";
+        text.style.opacity = "1";
+        badge.style.transform = "translateY(0)";
+        text.style.transform = "translateY(0)";
+      }, 140);
+    });
+  });
+}
+</script>
+
+<style>
+.modules_section{
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(60px, 8vw, 110px) 20px;
+}
+
+.modules_blob{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  width: 80%;
+  aspect-ratio: 16 / 7;
+
+  background: linear-gradient(200deg, #F4A3B4 0%, #A3B8CA 100%);
+  opacity: 0.8;
+
+  filter: blur(26px);
+
+  transform-origin: 50% 50%;
+  transform:translateX(20%) translateY(0%);
+  
+  -webkit-mask-image: url("/mask/blob-mask-blur.png");
+  mask-image: url("/mask/blob-mask-blur.png");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.modules_inner{
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: clamp(36px, 5vw, 56px);
+    }
+
+.modules_head{
+    text-align: center;
+    }
+
+.modules_head h2{
+    margin: 0;
+    font-family: "Unigeo reg", sans-serif;
+    font-size: clamp(24px, 3vw, 44px);
+    line-height: 1;
+    }
+
+.modules_head p{
+    margin: 6px 0 0;
+    font-size: clamp(13px, 1.4vw, 18px);
+    color: rgba(17,17,17,.75);
+    }
+
+.modules_layout{
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) minmax(260px, 420px);
+    align-items: center;
+    justify-content: center;
+    gap: clamp(28px, 6vw, 90px);
+    margin: 0 auto;
+    }
+
+.modules_grid{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(72px, 1fr));
+    gap: 12px;
+    max-width: 460px;
+    margin-left: auto;
+    }
+
+.mod-chip{
+    height: 120px;
+    width: 120px;
+    padding: 10px 8px;
+    border-radius: 10px;
+    border: 2px solid rgba(167,184,199,.9);
+    background: #fff;
+    font-family: Unigeo reg;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.05;
+    color: #111;
+    text-align: center;
+    display: grid;
+    place-items: center;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+.mod-chip:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,.08);
+    }
+
+.stehle-card{
+    position: relative;
+    width: min(100%, 360px);
+    aspect-ratio: 0.62 / 1;
+    justify-self: start;
+    }
+
+.stehle-card_frame{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+    }
+
+.stehle-card_screen{
+    position: absolute;
+    inset: 8.5% 14% 8.5% 14%;
+    display: grid;
+    grid-template-rows: auto 1fr auto 1fr;
+    justify-items: center;
+    align-items: start;
+    }
+
+.stehle-card_badge{
+    margin-top: 8%;
+    width: 180px;
+    height: 180px;
+    border: 2px solid rgba(167,184,199,.9);
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    font-family: "Unigeo", sans-serif;
+    font-size: clamp(32px, 2vw, 40px);
+    line-height: .95;
+    padding: 10px;
+    }
+
+.stehle-card_arrow{
+    align-self: center;
+    font-size: clamp(40px, 4vw, 58px);
+    line-height: 1;
+    font-family: "Bahnschrift", sans-serif;
+    font-weight: 700;
+    }
+
+.stehle-card_text{
+    align-self: start;
+    text-align: center;
+    font-size: clamp(16px, 1.1vw, 20px);
+    line-height: 1.15;
+    color: rgba(17,17,17,.72);
+    margin-top: -8px;
+    }
+
+.stehle-card_badge,
+.stehle-card_text{
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+@media (max-width: 900px){
+  .modules_layout{
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+  .modules_grid{
+    margin-left: 0;
+    order: 1;
+  }
+  .stehle-card{
+    justify-self: center;
+    order: 2;
+    width: min(320px, 72vw);
+  }
+  .modules_blob{
+    transform: translateY(120%) rotate(90deg) scale(150%);
+  }
+}
+
+@media (max-width: 760px){
+  .modules_grid{
+    justify-self: center;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    max-width: 320px;
+    gap: 10px;
+  }
+  .mod-chip{
+    height: 100px;
+    width: 100px;
+    font-size: 18px;
+  }
+}
+</style>
