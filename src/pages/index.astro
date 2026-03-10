@@ -8,9 +8,11 @@ import Modules from "../components/Modules.astro";
 import Comparison from "../components/Comparison.astro";
 import Diashow from "../components/Diashow.astro";
 
+const base = import.meta.env.BASE_URL;
+
 const slides = [
   {
-    img: "imgs/choose.png",
+    img: `${base}imgs/choose.png`,
     alt: "idle screen",
     title1: "Schritt 1 -",
     title2: " Auswahl:",
