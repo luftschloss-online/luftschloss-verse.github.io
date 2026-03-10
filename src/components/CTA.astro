@@ -50,18 +50,18 @@ import "../styles/global.css";
   }
 
   .cta-cloud{
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 
-  bottom: -15vw;
+    bottom: -15vw;
 
-  width: 120vw;
-  max-width: none;
+    width: 120vw;
+    max-width: none;
 
-  z-index: 3;
-  pointer-events: none;
-}
+    z-index: 3;
+    pointer-events: none;
+  }
 
   .cta-hero::after{
     content: "";
@@ -188,12 +188,12 @@ import "../styles/global.css";
     white-space: nowrap;
     letter-spacing: -0.05em;
     /* off state */
-  opacity: 0;
-  transform: translateY(22px) scale(.92);
-  transition:
-    opacity 700ms cubic-bezier(0,0,.58,1),
-    transform 900ms cubic-bezier(0,0,.58,1);
-  will-change: transform, opacity;
+    opacity: 0;
+    transform: translateY(22px) scale(.92);
+    transition:
+      opacity 700ms cubic-bezier(0,0,.58,1),
+      transform 900ms cubic-bezier(0,0,.58,1);
+    will-change: transform, opacity;
 }
 
 /* view state */
@@ -203,9 +203,7 @@ import "../styles/global.css";
 }
 
   @media (max-width: 900px){
-    .cta-hero{
-    min-height: auto;
-    }
+    .cta-hero{ min-height: auto; }
 
     .cta-inner{
       min-height: auto;
@@ -234,31 +232,24 @@ import "../styles/global.css";
       width: 250px;
       bottom: 30%;
     }
-    .cta-circle span{
-      font-size: 24px;
-    }
+    .cta-circle span{ font-size: 24px;}
   }
 
   @media (max-width: 640px){
-    .cta-copy h2{
-      font-size: clamp(32px, 8vw, 50px);
-    }
-
-    .cta-copy p{
-      font-size: clamp(32px, 8vw, 50px);
-    }
+    .cta-inner{ gap: 200px;}
+    .cta-copy h2{ font-size: clamp(32px, 8vw, 50px);}
+    .cta-copy p{ font-size: clamp(32px, 8vw, 50px); }
+    .cta-cloud{ bottom: -12vw; }
 
     .cta-circle{
-      width: 200px;
+      width: 170px;
       padding: 18px;
       bottom: 25%;
     }
-    .cta-circle span{
-      font-size: 18px;
-    }
+    .cta-circle span{ font-size: 16px;}
 
     .cta-title{
-      font-size: clamp(64px, 40vw, 130px);
+      font-size: clamp(64px, 30vw, 130px);
       line-height: 0.9;
     }
   }

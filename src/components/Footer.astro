@@ -3,11 +3,23 @@ import '../styles/global.css';
 ---
 <footer class="section" style="padding: 20px 0;">
   <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
-    <div class="ls_logo" style="font-size: clamp(34px, 6vw, 63px);">luftschloss.</div>
-    <div style="display:flex; gap:clamp(30px, 4vw, 70px);font-size: clamp(15px, 4vw, 25px);">
+    <div class="ls_logo" style="font-size: clamp(26px, 5vw, 63px);">luftschloss.</div>
+    <div class="footer_links">
       <a href="#contact">Kontakt</a>
       <a href="/impressum">Impressum</a>
       <a href="/agb">AGB</a>
     </div>
   </div>
 </footer>
+
+<style>
+  .footer_links{
+    display:flex;
+    gap:clamp(30px, 4vw, 70px);
+    font-size: clamp(15px, 4vw, 25px); 
+  }
+
+  @media (max-width: 760px){
+    .footer_links{ gap: 15px;}
+}
+</style>

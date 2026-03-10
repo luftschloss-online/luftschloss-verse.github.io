@@ -343,6 +343,12 @@ h2{
   will-change: transform, opacity;
 }
 
+.anfrage {
+  font-size: 50px;
+  font-family: Unigeo italic;
+  margin-top: -280px;
+}
+
 .white-card-title{
   font-family: "Unigeo slimItalic";
   font-size: clamp(25px, 3vw, 40px);
@@ -633,6 +639,8 @@ h2{
 }
 
 @media (max-width: 760px){
+  .container { padding-left: 30px; padding-right: 30px; }
+  .himmel_inner { padding-block: 30px; padding-inline: 30px; }
   /*.pros_grid{ grid-template-columns: repeat(2, 1fr); } */
   .pros_check{ width: 32px; height: 32px; font-size: 28px; }
   .pros_label{ font-size: 14px; }
@@ -642,6 +650,7 @@ h2{
     transform: translateX(-25%);
   }
   .white-block{ padding: 40px 0 70px; }
+  .anfrage{ margin-top: -200px; }
   .brand{ gap: 8px; }
   .brand_by{ font-size: 12px; }
 
